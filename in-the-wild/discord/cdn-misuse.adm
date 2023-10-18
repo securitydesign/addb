@@ -1,0 +1,52 @@
+# SOURCE: https://www.bleepingcomputer.com/news/security/discord-abused-to-spread-malware-and-harvest-stolen-data/
+
+Model: Discord CDN used to distribute malware
+
+    As an attacker
+    I want to leverage the trust in Discord app
+    So that I can install malware on victim's computer
+
+    As a defender
+    I want to stop discord app from installing malware
+    So that victim's computer is safe to use
+
+    Attack: Malware is uploaded to channel
+        Given Attacker is part of a discord channel
+        When Malware is uploaded to the channel
+        Then Malware is available for others to download
+        And Malware is available on a permanently unique link
+
+    Defense: Malicious uploads are reported by users
+        When Malware is uploaded to the channel
+        And Users identify uploaded file as malware
+        Then Users report uploaded file as malware
+
+    Defense: Discord warns users about malware
+        Given Malicious uploads are reported by users
+        When User views the page containing the uploaded file
+        Then Discord displays warning about the file potentially being a malware
+
+    Attack: Not all files are reported by users
+        When Users report uploaded file as malware
+        And Not all malware uploads are identified by users as malware
+        Then Malware is available for use in attacks
+
+    Defense: Discord scans for known malware
+        When Malware is uploaded to the channel
+        Then Discord scans files for known malware
+        And Discord blocks that file from being uploaded
+
+    Attack: Already uploaded files are note scanned
+        When Discord scans files for known malware
+        Then Discord's scanner doesn't scan files that are already successfully uploaded
+
+    Attack: Malware is available after removal
+        Given Malware is uploaded to channel
+        And Not all files are reported by users
+        When Attacker removes the uploaded file from channel
+        Then Malware is still available over a unique link
+
+    Attack: Discord is leveraged as anonymous malware hosting service
+        Given Malware is available after removal
+        When Attacker needs a server to distribute second stage loader
+        Then Discord is used for hosting second stage loader malware

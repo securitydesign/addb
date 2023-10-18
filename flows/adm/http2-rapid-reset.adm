@@ -1,0 +1,58 @@
+# SOURCE: https://blog.cloudflare.com/zero-day-rapid-reset-http2-record-breaking-ddos-attack/
+
+Model: HTTP2 Rapid Reset attack
+
+    As an attacker
+    I want to use HTTP2 vulnerability to bring down a website
+    So that the target cannot server their customers
+
+    As a defender
+    I want to maintain uptime of the website
+    So that my customers can continue using the submitted
+
+    Attack: All open endpoints on company domain are identified
+        When company' web domain is scanned for open endpoints
+        Then List of all portal endpoints are revealed
+
+    Attack: All API endpoints on company domain are identified
+        When Web content from company website is reviewed
+        And Website response contents are reviewed
+        Then List of all API endpoints are identified from the code
+
+    Attack: Endpoints that are not behind Cloudflare are identified
+        Given All open endpoints on company domain are identified
+        And All API endpoints on company domain are identified
+        When a DNS request for Nameserver(NS) record is sent for each endpoint
+        Then The endpoint is idenfied to be not behind Cloudflare or other firewalls
+
+    # Legit clients should start sending content requests after requesting NS records
+    Defense: A flood of NS requests triggers alert
+        When The endpoint is idenfied to be not behind Cloudflare or other firewalls
+        And Client doesn't follow up with content requests
+        Then Security monitoring system raises an alert about a potential scanning exercise
+
+    @scan-unprotected-endpoints
+    Attack: Unprotected endpoints using HTTP2 are identified
+        Given Endpoints that are not behind Cloudflare are identified
+        When A HTTP2 request is sent to the target endpoint
+        Then a valid HTTP2 response is received
+
+    @scan-unprotected-endpoints
+    Defense: Periodic scanning of unprotected endpoints
+        Given Company scanner is among the list of allowed scanners
+        When Company endpoints are scanned for DNS records
+        Then Unprotected endpoints are revealed
+
+    Defense: Unprotected endpoints are put behind Cloudflare
+        Given Periodic scanning of unprotected endpoints
+        When Unprotected endpoints are revealed
+        Then these endpoints are moved behind Cloudflare
+
+    Attack: Stream of 'start' and 'reset' requests are sent in quick succession on a single connection
+        Given Unprotected endpoints using HTTP2 are identified
+        When Web server is flooded with a quick series of 'request' and 'cancel' messages
+        Then Web server crashes due to resource exhaustion
+
+    Defense: Streeam count per connection is limited
+        When Web server is flooded with a quick series of 'request' and 'cancel' messages
+        Then reject connections that try to open streams that exceed a predefined limit

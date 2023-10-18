@@ -1,0 +1,72 @@
+Model: Casino Security Breach 2023
+
+# Source: https://www.bleepingcomputer.com/news/security/mgm-casinos-esxi-servers-allegedly-encrypted-in-ransomware-attack/
+# Specialist hacker gang - Scatter Spider was used to obtain creds of IT employee.
+# Scatter Spider is also known as oktapus, UNC3944, Scatter Swine.
+
+Attack: Scatter spider gang is engaged to obtain credentials of IT employee
+    Given SIM swapping is used to thwart MFA
+    And Phishing campaign is used to get user's MFA codes
+    And MFA fatigue used to thwart MFA
+    When IT employee of casino is targeted by the campaign
+    Then IT employee's credentials are leaked
+
+Attack: Initial network access is gained
+    Given Scatter spider gang is engaged to obtain credentials of IT employee
+    When IT employee's credentials are used to login to network
+    Then Access to corporate network is obtained
+
+Attack: Malicious Windows drivers are deployed
+    Given Initial network access is gained
+    When A Windows driver signed by stolen signing certificate is deployed
+    Then Attacker gains permanent foothold on all computers of Casino
+
+Attack: Post breach access is maintained
+    Given Malicious Windows drivers are deployed
+    When Access to all important servers is established
+    Then Attacker gains permanent foothold on all computers of Casino
+
+Attack: Hash dumps are extracted from domain controllers
+    Given Post breach access is maintained
+    When domain controllers are compromized
+    Then Password hashes are exfiltrated
+
+Attack: Okta Agent servers are compromized
+    Given Post breach access is maintained
+    And User accounts are distributed between domain controllers and Okta
+    When Okta Agent servers are compromized
+    Then Attacker gains access to user accounts stored on Okta Agent servers
+
+Defense: Disconnect Okta Sync servers
+    When Attacker gains access to user accounts stored on Okta Agent servers
+    Then disconnect all Okta Agent servers from corporate network
+
+Attack: ESXi hypervisors are encrypted
+    Given Post breach access is maintained
+    When Other computers on the network containing malicious drivers are targeted
+    Then Users cannot access data maintained by VMs hosted by the hypervisors
+
+Attack: Backups are destroyed
+    Given Post breach access is maintained
+    When Data stored on backup servers are destroyed or encrypted
+    Then Casino cannot reconstitute their network from backups
+
+Attack: Employee computers are encrypted
+    Given Post breach access is maintained
+    When Employee computers are encrypted
+    Then Casino operations come to a standstill
+
+Attack: Ransomware demand is sent
+    Given ESXi hypervisors are encrypted
+    And Okta Agent servers are compromized
+    And Hash dumps are extracted from domain controllers
+    And Backups are destroyed
+    Then Ransomware demand is sent to Casino
+
+Defense: Don't pay ransom
+    When Ransomware demand is sent to Casino
+    Then Casino rejects the demand for ransom
+
+Attack: Stolen data is leaked
+    When Casino rejects the demand for ransom
+    Then Casino's data is leaked by the attackers to Internet

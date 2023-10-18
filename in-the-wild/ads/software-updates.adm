@@ -1,0 +1,6 @@
+Model: Malicious ads for software updates
+
+    Attack: Ads are posted on popular sites
+        Given Ad sites allow attacker to post ads about popular software
+        When Ad contains link to a spoofed site of original software vendor
+        Then user clicks on the ad and installs modified version of original software containing malware

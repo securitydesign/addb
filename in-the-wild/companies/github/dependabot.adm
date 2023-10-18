@@ -1,0 +1,18 @@
+Model: Impersonate dependabot
+
+    Attack: A user named 'dependabot' is created in organization account on GitHub
+        Given attacker has access to create user accounts
+        When attacker creates an account called 'dependabot'
+        Then attacker can submit PRs using that account
+
+    @yolosec
+    Attack: Auto PR approval feature is exploited
+        Given A user named 'dependabot' is created in organization account on GitHub
+        When PR containing malware is submitted to a repository in that organization
+        Then PR process automatically approves it without checking if that user is allowed to merge
+
+    Attack: Malicious PR submitted for approval
+        Given A user named 'dependabot' is created in organization account on GitHub
+        When PR containing malware is submitted to a repository
+        Then Team members assume that the 'dependabot' user is Github's Dependabot feature
+        And Team members approve the PR

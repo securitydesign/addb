@@ -1,0 +1,39 @@
+# Source: https://www.bleepingcomputer.com/news/security/mgm-casinos-esxi-servers-allegedly-encrypted-in-ransomware-attack/
+# Scatter spider's campaign has targetted 130 organizations till now including
+# TMobile, MetroPCS, Verizon Wireless, AT&T, Slack, Twitter, Binance, KuCoin,
+# CoinBase, Microsoft, Epic Games, Riot Games, Evernote, HubSpot, TTEC and Best Buy
+
+# Source: https://www.crowdstrike.com/blog/scattered-spider-attempts-to-avoid-detection-with-bring-your-own-vulnerable-driver-tactic/
+# Scatter spider is known to use vulnerabile Intel ethernet diagnostics 
+# driver (CVE-2015-2291) to deploy a malicious kernel driver
+
+Model: Scatter spider hacker gang
+
+    Attack: Helpdesk is impersonated to gain employee credentials
+        Given Contact information of an employee is leaked
+        When Casino's helpdesk person is impersonated
+        Then the employee is contacted to ask for credentials to fix a non-existing problem
+
+    Attack: Phishing campaign is used to get user's login credentials
+        Given Casino is subject to phishing campaign
+        When Employees of casino are successfully phished to login through attacker's website
+        Then Credentials of phished employees are leaked to attackers
+
+    Attack: SIM swapping is used to thwart MFA
+        Given Helpdesk is impersonated to gain employee credentials
+        And Phishing campaign is used to get user's login credentials
+        When Attackers swap the SIM card of target employee's phone number
+        Then Attacker can use their phone to receive 2nd factor SMS messages
+
+    Attack: Phishing campaign is used to get user's MFA codes
+        Given Helpdesk is impersonated to gain employee credentials
+        And Phishing campaign is used to get user's login credentials
+        When Employees of casino are successfully phished to enter MFA code on attacker's website
+        Then Attacker gains access to employees accounts inside the network
+
+    Attack: MFA fatigue used to thwart MFA
+        Given Casino uses authenticator apps to provide approval
+        And Helpdesk is impersonated to gain employee credentials
+        And Phishing campaign is used to get user's login credentials
+        When MFA request is repeateadly sent to compromized employees when they are sleeping
+        Then Compromized employee may accidentally approve it
