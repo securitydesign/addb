@@ -34,7 +34,7 @@ recommendations:
   - Evaluate whether an account requires "Delete" rights. It is a good design practice to not delete any records, especially if the DB is transactional.
   # SQL Queries
   - Avoid direct access to tables and built-in SQL functions. Instead use views and stored-procedures to access data.
-  - Instead of executing SQL procedures on DB, use stored procedures. These procedures should sanitize all inputs before using them in queries.
+  - Instead of executing SQL procedures on DB, use stored procedures.
   - Ensure stored procedures sanitize their inputs i.e., replace symbols in input strings with associated escape chararacters.
   - |
     DB views can also be used for access control. 
@@ -48,7 +48,7 @@ recommendations:
   - |
     Make sure DB Server and its storage is set up to handle peak traffic and large request spikes. 
     This helps when DoS attacks end up impacting traffic to databases.
-    If you are using honeypots to handle DoS attacks, include a dummy database too in the honeypot to confuse the attacker.
+    If you are using honeypots to handle DoS attacks, include a dummy database in the honeypot to confuse the attacker.
   - |
     Database backups should be secured at a level similar to the primary database.
     Attackers always take the path of least resistance. 
